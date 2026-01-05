@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sample Web Page</title>
+  <meta name="description" content="A simple, responsive HTML page with basic styles and interactive JavaScript." />
+  <style>
+    :root{
+      --bg: #0f172a;          /* slate-900 */
+      --panel: #111827;       /* gray-900 */
+      --muted: #94a3b8;       /* slate-400 */
+      --text: #e5e7eb;        /* gray-200 */
+      --accent: #38bdf8;      /* sky-400 */
+      --accent-2: #22c55e;    /* green-500 */
+      --danger: #ef4444;      /* red-500 */
+      --ring: 0 0 0 3px rgba(56, 189, 248, .35);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(56,189,248,.15), transparent 60%),
+                  radial-gradient(900px 600px at -10% 120%, rgba(34,197,94,.12), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+      margin: 24px 0 16px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(148,163,184,.06), rgba(148,163,184,.02));
+      border: 1px solid rgba(148,163,184,.2);
+      backdrop-filter: blur(4px);
+    }
+
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 700; letter-spacing: .2px;
+    }
+
+    .logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #7dd3fc);
+      box-shadow: 0 10px 20px rgba(56,189,248,.25);
+    }
+
+    nav { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn {
+      appearance: none; border: 0; cursor: pointer;
+      padding: 10px 14px; border-radius: 10px;
+      color: var(--text); background: #0b1220; /* dark panel */
+      border: 1px solid rgba(148,163,184,.25);
+      transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:focus-visible { outline: none; box-shadow: var(--ring); }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), #60a5fa); }
+
+    main { display: grid; gap: 24px; }
+
+    .hero {
+      display: grid; gap: 16px; padding: 28px; border-radius: 16px;
+      background: linear-gradient(180deg, rgba(148,163,184,.06), rgba(148,163,184,.02));
+      border: 1px solid rgba(148,163,184,.2);
+    }
+    .hero h1 {
+      margin: 0; font-size: clamp(28px, 4vw, 42px); line-height: 1.15;
+      letter-spacing: .2px;
+    }
+    .hero p { margin: 0; color: var(--muted); font-size: clamp(14px, 2vw, 18px); }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 18px; border-radius: 14px;
+      background: #0b1220;
+      border: 1px solid rgba(148,163,184,.18);
+      transition: transform .08s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .card:hover { transform: translateY(-2px); border-color: rgba(56,189,248,.45); }
+
+    .card h3 { margin: 4px 0 8px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); }
+
+    .tools { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .chip { padding: 6px 10px; border-radius: 999px; font-size: 12px; color: var(--text);
+            background: rgba(56,189,248,.14); border: 1px solid rgba(56,189,248,.35); }
+
+    .panel {
+      margin-top: 6px; padding: 14px; border-radius: 12px;
+      background: rgba(2,6,23,.55);
+      border: 1px dashed rgba(148,163,184,.25);
+      color: var(--muted);
+      font-size: 14px;
+      display: grid; gap: 10px;
+    }
+
+    footer {
+      margin: 28px 0 48px; color: var(--muted); font-size: 14px; text-align: center;
+    }
+
+    /* Small utility */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand" aria-label="Brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Sample Web</span>
+      </div>
+      <nav aria-label="Primary">
+        <a class="btn" href="#features">Features</a>
+        <a class="btn" href="#playground">Playground</a>
+        <button class="btn primary" id="themeToggle" type="button" aria-pressed="false">Toggle Accent</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="features">
+        <h1>Modern HTML, minimal CSS, a pinch of JS</h1>
+        <p>This page is responsive, accessible, and ready to extend. Use it as a starting point for your projects.</p>
+        <div class="tools">
+          <span class="chip">Semantic HTML</span>
+          <span class="chip">Responsive CSS</span>
+          <span class="chip">A11y-Friendly</span>
+          <span class="chip">Vanilla JS</span>
+        </div>
+      </section>
+
+      <section class="cards" aria-label="Highlights">
+        <article class="card">
+          <h3>Fast</h3>
+          <p>Pure HTML/CSS/JS. No build steps. Load and go.</p>
+        </article>
+        <article class="card">
+          <h3>Readable</h3>
+          <p>Clear structure and comments where it matters.</p>
+        </article>
+        <article class="card">
+          <h3>Extensible</h3>
+          <p>Add components, pages, or integrate frameworks later.</p>
+        </article>
+        <article class="card">
+          <h3>Accessible</h3>
+          <p>Uses landmarks, focus styles, and proper contrast.</p>
+        </article>
+      </section>
+
+      <section id="playground" class="panel" aria-live="polite">
+        <strong>Playground</strong>
+        <label for="nameInput">Your name</label>
+        <input id="nameInput" type="text" placeholder="Type your name" aria-describedby="greetHelp" 
+               style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(148,163,184,.35); background:#0b1220; color:var(--text)" />
+        <div id="greetHelp" class="sr-only">Type your name to see a greeting update below.</div>
+        <button id="greetBtn" class="btn" type="button">Greet</button>
+        <div id="greetOut" aria-live="polite">Hello, stranger!</div>
+      </section>
+    </main>
+
+    <footer>
+      <span>&copy; <span id="year"></span> Sample Web. Built with HTML, CSS, and JS.</span>
+    </footer>
+  </div>
+
+  <script>
+    // Simple interactive behavior
+    const yearEl = document.getElementById('year');
+    yearEl.textContent = new Date().getFullYear();
+
+    const input = document.getElementById('nameInput');
+    const out = document.getElementById('greetOut');
+    const btn = document.getElementById('greetBtn');
+    btn.addEventListener('click', () => {
+      const name = (input.value || '').trim();
+      out.textContent = name ? `Nice to meet you, ${name}!` : 'Hello, stranger!';
+    });
+
+    // Accent theme toggle: swap CSS variables for accent colors
+    const toggle = document.getElementById('themeToggle');
+    let alt = false;
+    toggle.addEventListener('click', () => {
+      alt = !alt;
+      document.documentElement.style.setProperty('--accent', alt ? 'var(--accent-2)' : '#38bdf8');
+      toggle.setAttribute('aria-pressed', String(alt));
+    });
+  </script>
+</body>
+</html>
